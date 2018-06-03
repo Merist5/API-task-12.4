@@ -1,7 +1,11 @@
 var url = 'http://api.icndb.com/jokes/random';
 var button = document.getElementById('get-joke');
-button.addEventListener('click', function(){
+
+$(document).ready(function() {
   getJoke();
+  $(button).on('click', function(){
+    getJoke();
+  })
 });
 
 var paragraph = document.getElementById('joke');
@@ -11,7 +15,7 @@ function getJoke() {
   xhr.open('GET', url);
   xhr.addEventListener('load', function() {
     var response = JSON.parse(xhr.response);
-    paragraph.innerHTML = response.value.joke;
+    paragraph.innerHTML = response.value.joke || "Can't show joke :(";
   });
   xhr.send();
 };
